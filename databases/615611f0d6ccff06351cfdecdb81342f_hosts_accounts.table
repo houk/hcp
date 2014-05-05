@@ -1,0 +1,58 @@
+(dp1
+S'group_id'
+p2
+(dp3
+S'length'
+p4
+I512
+sS'unique'
+p5
+I00
+sS'sortable'
+p6
+I3
+sS'sql'
+p7
+S'BIGINT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE'
+p8
+sS'notnull'
+p9
+I00
+sS'type'
+p10
+S'reference auth_group'
+p11
+ssS'hosts_id'
+p12
+(dp13
+g4
+I512
+sg5
+I00
+sg6
+I2
+sg7
+S'BIGINT, INDEX hosts_id__idx (hosts_id), FOREIGN KEY (hosts_id) REFERENCES hosts (id) ON DELETE CASCADE'
+p14
+sg9
+I00
+sg10
+S'reference hosts'
+p15
+ssS'id'
+p16
+(dp17
+g4
+I512
+sg5
+I00
+sg6
+I1
+sg7
+S'BIGINT AUTO_INCREMENT NOT NULL'
+p18
+sg9
+I00
+sg10
+g16
+ss.

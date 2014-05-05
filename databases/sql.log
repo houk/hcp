@@ -1,0 +1,143 @@
+timestamp: 2014-04-22T13:19:30.610114
+CREATE TABLE auth_user(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    first_name VARCHAR(128),
+    last_name VARCHAR(128),
+    email VARCHAR(512),
+    password VARCHAR(512),
+    registration_key VARCHAR(512),
+    reset_password_key VARCHAR(512),
+    registration_id VARCHAR(512),
+    site_quota INT,
+    group_id VARCHAR(512),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:30.704202
+CREATE TABLE auth_group(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    role VARCHAR(512),
+    description LONGTEXT,
+    site_quota INT,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:30.792922
+CREATE TABLE auth_membership(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    user_id BIGINT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id BIGINT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:30.981375
+CREATE TABLE auth_permission(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    group_id BIGINT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    name VARCHAR(512),
+    table_name VARCHAR(512),
+    record_id INT,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:31.121773
+CREATE TABLE auth_event(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    time_stamp DATETIME,
+    client_ip VARCHAR(512),
+    user_id BIGINT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin VARCHAR(512),
+    description LONGTEXT,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:31.261647
+CREATE TABLE auth_cas(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    user_id BIGINT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on DATETIME,
+    service VARCHAR(512),
+    ticket VARCHAR(512),
+    renew CHAR(1),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:31.402807
+CREATE TABLE hcp_properties(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    Property VARCHAR(512),
+    PropertyValue LONGTEXT,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:31.496153
+CREATE TABLE hosts(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(512),
+    hostname VARCHAR(512),
+    dev CHAR(1),
+    live CHAR(1),
+    test CHAR(1),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:31.585584
+CREATE TABLE hosts_accounts(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    hosts_id BIGINT, INDEX hosts_id__idx (hosts_id), FOREIGN KEY (hosts_id) REFERENCES hosts (id) ON DELETE CASCADE,
+    group_id BIGINT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:19:31.774495
+CREATE TABLE activity(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    activity_date DATE,
+    activity_time TIME,
+    group_id BIGINT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    user_id BIGINT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    hcp_action VARCHAR(512),
+    hcp_object VARCHAR(512),
+    description VARCHAR(512),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:21:46.948810
+CREATE TABLE sites(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    group_id BIGINT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    name VARCHAR(512),
+    dev_url VARCHAR(512),
+    dev_host BIGINT, INDEX dev_host__idx (dev_host), FOREIGN KEY (dev_host) REFERENCES hosts (id) ON DELETE CASCADE,
+    live_url VARCHAR(512),
+    live_host BIGINT, INDEX live_host__idx (live_host), FOREIGN KEY (live_host) REFERENCES hosts (id) ON DELETE CASCADE,
+    test_url VARCHAR(512),
+    test_host BIGINT, INDEX test_host__idx (test_host), FOREIGN KEY (test_host) REFERENCES hosts (id) ON DELETE CASCADE,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-22T13:50:25.510432
+ALTER TABLE auth_user DROP COLUMN site_quota;
+success!
+timestamp: 2014-04-22T13:50:25.645711
+ALTER TABLE auth_user DROP COLUMN group_id;
+success!
+timestamp: 2014-04-22T13:52:20.359052
+ALTER TABLE auth_user ADD site_quota INT;
+success!
+timestamp: 2014-04-22T13:52:20.501050
+ALTER TABLE auth_user ADD group_id VARCHAR(512);
+success!
+success!
+timestamp: 2014-04-22T15:08:13.808893
+CREATE TABLE sites_users(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    site_id BIGINT, INDEX site_id__idx (site_id), FOREIGN KEY (site_id) REFERENCES sites (id) ON DELETE CASCADE,
+    user_id BIGINT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-04-25T11:47:53.455255
+ALTER TABLE hosts ADD host_ip VARCHAR(512);
+success!
+success!

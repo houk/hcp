@@ -1,0 +1,41 @@
+.w2p_fw textarea {
+    width:300px;
+}
+
+.hcp-sites_search input[type="text"], .hcp-activity_search input[type="text"] {
+    width:200px;
+    margin:0 5px 0 0;
+}
+
+.hcp-sites_search select, .hcp-activity_search select {
+    width:160px;
+    margin:0 5px 0 0;
+}
+
+.hcp-account_filter_form input[type="submit"] {
+    margin-top:0;
+}
+
+.hcp-sites_table {
+    color:#999;
+    width:100%;
+    margin-bottom:40px;
+}
+
+.hcp-sites_table span.site_name {
+    font-weight:bold;
+    color:#000;
+}
+
+.hcp-sites_table th {
+    color:#000;
+    border-style:solid;
+    border-width:0 0 1px 0;
+}
+
+.hcp-sites_table td {
+    padding:10px 5px 10px 5px;
+    border-style:solid;
+    border-width:0 0 1px 0;
+    border-color:#EAEAEA;
+}
